@@ -1,6 +1,8 @@
 """
 Quinn Cummings - 4/10/2021
-
+-----------------------------------------------------
+Effect:
+extracts live data from the CoinLore API and loads data to 10 tables in MySql database on local linux system
 
 """
 
