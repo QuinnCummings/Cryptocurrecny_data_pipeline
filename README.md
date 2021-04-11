@@ -6,6 +6,7 @@
 -scheduled pipeline to extract data daily with cron
 
 The tables in the database are as follows:
+
 ![tables](https://user-images.githubusercontent.com/28849195/114291289-3b6f1c80-9a54-11eb-8326-2a023732031e.png)
 
 Here is an example schema for the bitcoin table which is also identical to the 9 other tables:
