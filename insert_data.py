@@ -1,3 +1,11 @@
+"""
+Quinn Cummings - 4/10/2021
+
+
+"""
+
+
+
 import requests
 import json
 from sqlalchemy import *
