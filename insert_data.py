@@ -6,14 +6,22 @@ extracts live data from the CoinLore API and loads data to 10 tables in MySql da
 
 """
 
-
-
 import requests
 import json
 from sqlalchemy import *
 from datetime import datetime
 from sqlalchemy.engine.url import URL
 
+btc_data ={}
+eth_data ={}
+binance_data ={}
+xrp_data ={}
+polka_data ={}
+cardano_data ={}
+lite_data ={}
+btcCash_data ={}
+stellar_data ={}
+theta_data ={}
 
 url = URL(drivername='mysql', username='quinn', password='xxxxxx', host='localhost', database='crypto')
 engine = create_engine(url)
@@ -30,30 +38,19 @@ bitcoin_cash = Table('bitcoin_cash', metadata,autoload=True, autoload_with=engin
 stellar = Table('stellar', metadata,autoload=True, autoload_with=engine)
 theta_token = Table('theta_token', metadata,autoload=True, autoload_with=engine)
 
-btc_data ={}
-eth_data ={}
-binance_data ={}
-xrp_data ={}
-polka_data ={}
-cardano_data ={}
-lite_data ={}
-btcCash_data ={}
-stellar_data ={}
-theta_data ={}
 list_of_dicts = [[bitcoin,btc_data], [ethereum,eth_data], [binance_coin,binance_data], [xrp,xrp_data], [polkadot,polka_data], 
 		[cardano,cardano_data], [litecoin,lite_data], [bitcoin_cash,btcCash_data], [stellar,stellar_data], [theta_token,theta_data]]
-time = datetime.utcfromtimestamp(response['info']['time']).strftime('%Y-%m-%d %H:%M:%S')
-	
+
 response = requests.get("https://api.coinlore.net/api/tickers/")
 response = json.loads(response.text)
-
+time = datetime.utcfromtimestamp(response['info']['time']).strftime('%Y-%m-%d %H:%M:%S')
+	
 def load_dict(dict_t):
     dict_t['price_usd'] = float(coin['price_usd'])
     dict_t['pct_change_24h'] = float(coin['percent_change_24h'])
     dict_t['time'] = str(time)
     dict_t['market_cap_usd'] = float(coin['market_cap_usd'])
     dict_t['coin_rank'] = int(coin['rank'])
-
 
 for coin in response['data']:
   if coin['name'] in {'Bitcoin','Ethereum','Binance Coin','XRP','Polkadot','Cardano','Litecoin','Bitcoin Cash','Stellar','Theta Token'}:
